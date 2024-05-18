@@ -27,11 +27,11 @@ public class DBUtils {
 			Class.forName("com.mysql.jdbc.Driver");
 			String dsn = System.getenv("CLEARDB_DATABASE_URL");
 			if(dsn==null) {
-				dsn = "jdbc:mysql://root:@localhost/todo";
+				dsn = "mysql://root:@localhost/todo";
 			}
 			
 			// データベースへ接続
-			conn = DriverManager.getConnection(dsn, "", "");
+			conn = DriverManager.getConnection("jdbc:" + dsn, "", "");
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
