@@ -1,0 +1,1 @@
+web: java -Xmx300m -Xss512k -jar target/todo.war
