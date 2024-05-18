@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 
 public class DBUtils {
-	private static final String DSN = "jdbc:mysql://us-cluster-east-01.k8s.cleardb.net/heroku_5d2133367028194?reconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8";
-	private static final String USER = "b3a786857413f1";
-	private static final String PASSWORD = "9fb86b1d";
+//	private static final String DSN = "jdbc:mysql://b3a786857413f1:9fb86b1d@us-cluster-east-01.k8s.cleardb.net/heroku_5d2133367028194?reconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8";
+//	private static final String USER = "";
+//	private static final String PASSWORD = "";
 	
 	public static Connection getConnection() throws NamingException, SQLException {
 		//データベースの接続を確立
@@ -25,9 +25,13 @@ public class DBUtils {
 		try {
 			// JDBCドライバのロード
 			Class.forName("com.mysql.jdbc.Driver");
+			String dsn = System.getenv("CLEARDB_DATABASE_URL");
+			if(dsn==null) {
+				dsn = "jdbc:mysql://root:@localhost/todo";
+			}
 			
 			// データベースへ接続
-			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
+			conn = DriverManager.getConnection(dsn, "", "");
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
